@@ -1,0 +1,18 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Getting Started: Handing Form Submission</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+    <body>
+        <div>
+            <form action="/clientupdate" th:action="@{/clientupdate}" th:object="${client}" method="post">
+                <h1>Please, input new requisites below:</h1>
+                <p><input type="text" th:field="*{id}"/></p>
+                <p>Firstname: <input type="text" th:field="*{firstname}" th:value="*{firstname}"/></p>
+                <p>Lastname: <input type="text" th:field="*{lastname}" /></p>
+                <p><input type="submit" value="Update" /> <input type="reset" value="Reset" /></p>
+            </form>
+        </div>
+    </body>
+</html>
