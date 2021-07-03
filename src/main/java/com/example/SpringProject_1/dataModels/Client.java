@@ -2,16 +2,16 @@ package com.example.SpringProject_1.dataModels;
 
 import lombok.Getter;
 import lombok.Setter;
-
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
 @Table(name = "clients")
-public class Client {
+public class Client implements Serializable {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Setter @Getter
 	private long id;
 
@@ -23,44 +23,22 @@ public class Client {
 
 	public Client() {}
 
-	public Client(long id, String firstname, String lastname) {
-		this.id = id;
+	public Client(String firstname, String lastname) {
 		this.firstname = firstname;
 		this.lastname = lastname;
 	}
 
-//	public long getId() {
-//		return id;
-//	}
-//
-//	public void setId(long id) {
-//		this.id = id;
-//	}
-//
-//	public String getFirstname() {
-//		return firstname;
-//	}
-//
-//	public void setFirstname(String firstname) {
-//		this.firstname = firstname;
-//	}
-//
-//	public String getLastname() {
-//		return lastname;
-//	}
-//
-//	public void setLastname(String lastname) {
-//		this.lastname = lastname;
-//	}
+	public Client(long id, String firstname, String lastname) {
+		this(firstname, lastname);
+		this.id = id;
+	}
 
 	@Override
 	public boolean equals(Object obj) {
 		Client objClient;
 
 		if (this == obj) return true;
-
 		if (obj.getClass() != this.getClass()) return false;
-
 		objClient = (Client) obj;
 
 		return (Objects.equals(this.id, objClient.id)

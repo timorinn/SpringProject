@@ -24,7 +24,7 @@ public class MyController {
 	}
 
 	@PostMapping("/client")
-	public String postSubmit(@ModelAttribute Client client, Model model,
+	public String postClient(@ModelAttribute Client client, Model model,
 							 @ModelAttribute Client client2)
 	{
 		Client clientInDatabase = clientService.findById(client.getId());
