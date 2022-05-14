@@ -1,6 +1,8 @@
-package com.example.SpringProject_1;
+package com.example.springProject;
 
-import com.example.SpringProject_1.dataModels.Client;
+import com.example.springProject.dataModels.Client;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,29 +14,30 @@ public class MyController {
 	@Autowired
 	ClientService clientService;
 
+	Logger logger = LogManager.getLogger(MyController.class);
+
 	@GetMapping("/")
 	public String homepage() {
 		return "home";
 	}
 
 	@GetMapping("/client")
-	public String getClient(@ModelAttribute Client client, Model model) {
-		model.addAttribute("client", client);
+	public String getClient(@ModelAttribute Client clientForSearch, Model model) {
+		model.addAttribute("client", clientForSearch);
 		return "client";
 	}
 
 	@PostMapping("/client")
-	public String postClient(@ModelAttribute Client client, Model model,
-							 @ModelAttribute Client client2)
+	public String postClient(@ModelAttribute Client clientForSearch, Model model,
+							 @ModelAttribute Client clientForUpdate)
 	{
-		Client clientInDatabase = clientService.findById(client.getId());
-
+		Client clientInDatabase = clientService.findById(clientForSearch.getId());
 		if (clientInDatabase == null) {
+			logger.info("Client not found by id {}", clientForSearch.getId());
 			return "clientisnull";
 		}
-
 		model.addAttribute(clientInDatabase);
-		model.addAttribute("client2", client2);
+		model.addAttribute("client2", clientForUpdate);
 		return "clientnotnull";
 	}
 
@@ -42,7 +45,6 @@ public class MyController {
 	public String clientUpdate(@ModelAttribute Client client,
 							   Model model) {
 		model.addAttribute("client", client);
-		System.out.println(client);
 		return "clientupdate";
 	}
 

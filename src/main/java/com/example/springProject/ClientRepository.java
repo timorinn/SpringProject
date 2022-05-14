@@ -1,6 +1,6 @@
-package com.example.SpringProject_1;
+package com.example.springProject;
 
-import com.example.SpringProject_1.dataModels.Client;
+import com.example.springProject.dataModels.Client;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

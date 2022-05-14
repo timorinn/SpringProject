@@ -1,4 +1,4 @@
-package com.example.SpringProject_1;
+package com.example.springProject.Configurations;
 
 import org.springframework.context.annotation.Configuration;
 

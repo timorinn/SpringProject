@@ -1,11 +1,10 @@
-package com.example.SpringProject_1;
+package com.example.springProject;
 
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ReflectionUtils;
 
-import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 
 @Component

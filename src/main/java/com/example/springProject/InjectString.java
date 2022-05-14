@@ -1,6 +1,4 @@
-package com.example.SpringProject_1;
-
-import org.springframework.beans.factory.annotation.Autowired;
+package com.example.springProject;
 
 import java.lang.annotation.*;
 

@@ -7,9 +7,9 @@
 <body>
     <div th:object="${client}">
         <h1>Client found! :)</h1>
-        <p th:text="'id: ' + *{id}"/>
-        <p th:text="'firstname: ' + *{firstname}" />
-        <p th:text="'lastname: ' + *{lastname}" />
+        <p th:text="'id: ' + *{id}"></p>
+        <p th:text="'firstname: ' + *{firstname}"></p>
+        <p th:text="'lastname: ' + *{lastname}"></p>
 
         <a href="/client">Find another client!</a>
     </div>
@@ -18,7 +18,10 @@
          <p><input type="hidden" th:field="*{id}"/></p>
         <p><input type="hidden" th:field="*{firstname}" /></p>
         <p><input type="hidden" th:field="*{lastname}" /></p>
-        <p><input type="submit" value="Update" /> <input type="reset" value="Reset" /></p>
+        <p>
+            <input type="submit" value="Update" />
+<!--            <input type="reset" value="Reset" />-->
+        </p>
     </form>
 </body>
 </html>

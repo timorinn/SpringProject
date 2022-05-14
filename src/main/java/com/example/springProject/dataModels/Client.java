@@ -1,4 +1,4 @@
-package com.example.SpringProject_1.dataModels;
+package com.example.springProject.dataModels;
 
 import lombok.Getter;
 import lombok.Setter;

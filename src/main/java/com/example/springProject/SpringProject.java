@@ -1,14 +1,12 @@
-package com.example.SpringProject_1;
+package com.example.springProject;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.context.ApplicationContext;
 
 
-@ServletComponentScan
 @SpringBootApplication
-public class SpringProject1Application {
+public class SpringProject {
 
 	public static void displayAllBeans(ApplicationContext applicationContext) {
 		String[] allBeans = applicationContext.getBeanDefinitionNames();
@@ -19,7 +17,8 @@ public class SpringProject1Application {
 	}
 
 	public static void main(String[] args) {
-		ApplicationContext applicationContext = SpringApplication.run(SpringProject1Application.class, args);
-		displayAllBeans(applicationContext);
+		ApplicationContext applicationContext = SpringApplication.run(SpringProject.class, args);
+
+		//		displayAllBeans(applicationContext);
 	}
 }

@@ -1,4 +1,4 @@
-package com.example.SpringProject_1;
+package com.example.springProject.Configurations;
 
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
@@ -8,7 +8,7 @@ import javax.sql.DataSource;
 
 
 @Configuration
-public class MyConfiguration {
+public class DataSourceConfiguration {
 
 	@Bean
 	public DataSource getDataSource() {
