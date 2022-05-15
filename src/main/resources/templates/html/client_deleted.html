@@ -1,0 +1,19 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:form="http://www.w3.org/1999/html">
+<head>
+	<title>Spring Project</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+	<body>
+		<h1>Client deleted! :)</h1>
+
+		<div th:object="${client}">
+			<p th:text="'Client id=' + *{id}
+				+ '/firstname=' + *{firstname}
+				+ '/lastname=' + *{lastname}
+				+ ' deleted!'"></p>
+		</div>
+
+		<a href="/client_info_for_search">Find another client!</a>
+	</body>
+</html>

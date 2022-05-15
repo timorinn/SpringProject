@@ -1,5 +1,6 @@
-package com.example.springProject.dataModels;
+package com.example.springProject.entities;
 
+import com.sun.istack.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 import javax.persistence.*;
@@ -7,11 +8,12 @@ import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
-@Table(name = "clients")
+@Table(name = "client")
 public class Client implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id", nullable = false)
 	@Setter @Getter
 	private long id;
 
@@ -21,17 +23,22 @@ public class Client implements Serializable {
 	@Setter @Getter
 	private String lastname;
 
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "job")
+	@Setter @Getter
+	private Job job;
+
+
 	public Client() {}
 
-	public Client(String firstname, String lastname) {
+
+	public Client(@NotNull long id, String firstname, String lastname, Job job) {
+		this.id = id;
 		this.firstname = firstname;
 		this.lastname = lastname;
+		this.job = job;
 	}
 
-	public Client(long id, String firstname, String lastname) {
-		this(firstname, lastname);
-		this.id = id;
-	}
 
 	@Override
 	public boolean equals(Object obj) {
@@ -46,12 +53,15 @@ public class Client implements Serializable {
 				&& Objects.equals(this.lastname, objClient.lastname));
 	}
 
+
 	@Override
 	public String toString() {
-		return "Client{" +
-				"id=" + id +
-				", firstname='" + firstname + '\'' +
-				", lastname='" + lastname + '\'' +
-				'}';
+		return String.format("Client {id=%s, firstname=%s, lastname=%s, job=%s}",
+				id, firstname, lastname, job == null ? "unemployed" : job.getName());
+//		return "Client{" +
+//				"id=" + id +
+//				", firstname='" + firstname + '\'' +
+//				", lastname='" + lastname + '\'' +
+//				'}';
 	}
 }

@@ -5,8 +5,8 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-    <h1>Form for update</h1>
-    <form action="#" th:action="@{/client}" th:object="${client}" method="post">
+    <h1>Enter new data:</h1>
+    <form action="#" th:action="@{/client_search}" th:object="${client}" method="post">
         <p>Id: <input type="text" th:field="*{id}" /></p>
         <p>Firstname: <input type="text" th:field="*{firstname}" value="*{firstname}" /></p>
         <p>Lastname: <input type="text" th:field="*{lastname}" value="*{lastname}" /></p>

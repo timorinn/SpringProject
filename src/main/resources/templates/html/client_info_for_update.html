@@ -6,9 +6,9 @@
 </head>
     <body>
         <div>
-            <form action="/clientupdate" th:action="@{/clientupdate}" th:object="${client}" method="post">
-                <h1>Please, input new requisites below:</h1>
-                <p><input type="text" th:field="*{id}"/></p>
+            <form th:action="@{/client_updated}" th:object="${client}" method="post">
+                <h1>Please, enter new requisites below:</h1>
+                <p><input type="hidden" th:field="*{id}"/></p>
                 <p>Firstname: <input type="text" th:field="*{firstname}" th:value="*{firstname}"/></p>
                 <p>Lastname: <input type="text" th:field="*{lastname}" /></p>
                 <p><input type="submit" value="Update" /> <input type="reset" value="Reset" /></p>

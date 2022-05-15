@@ -3,6 +3,8 @@ package com.example.springProject;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.web.context.support.XmlWebApplicationContext;
 
 
 @SpringBootApplication
@@ -18,7 +20,6 @@ public class SpringProject {
 
 	public static void main(String[] args) {
 		ApplicationContext applicationContext = SpringApplication.run(SpringProject.class, args);
-
-		//		displayAllBeans(applicationContext);
+//		displayAllBeans(applicationContext);
 	}
 }
