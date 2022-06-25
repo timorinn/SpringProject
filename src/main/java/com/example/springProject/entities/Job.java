@@ -2,7 +2,7 @@ package com.example.springProject.entities;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.Table;
+
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(appliesTo = "job")
+@Table(name = "job")
 public class Job implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

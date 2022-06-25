@@ -1,5 +1,6 @@
-package com.example.springProject;
+package com.example.springProject.postProcessors;
 
+import com.example.springProject.InjectString;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.stereotype.Component;

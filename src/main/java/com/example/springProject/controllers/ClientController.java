@@ -1,6 +1,6 @@
 package com.example.springProject.controllers;
 
-import com.example.springProject.services.ClientService;
+import com.example.springProject.services.ClientServiceImpl;
 import com.example.springProject.entities.Client;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -15,15 +15,18 @@ import java.util.List;
 @Controller
 public class ClientController {
 
-	@Autowired
-	ClientService clientService;
+	private final ClientServiceImpl clientService;
 
 	Logger logger = LogManager.getLogger(ClientController.class);
 
+	@Autowired
+	public ClientController(ClientServiceImpl clientService) {
+		this.clientService = clientService;
+	}
 
 	@GetMapping("/")
 	public String homepage() {
-		return "home";
+		return "html/home";
 	}
 
 
@@ -66,7 +69,7 @@ public class ClientController {
 
 	@PostMapping("/client_deleted")
 	public String client(@ModelAttribute Client client, Model model) {
-		clientService.deleteClient(client.getId());
+		clientService.deleteClientById(client.getId());
 		return "html/client_deleted";
 	}
 
