@@ -1,5 +1,6 @@
 package com.example.springProject.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.sun.istack.NotNull;
 import lombok.Getter;
 import lombok.Setter;
@@ -9,28 +10,25 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "client")
+@Getter @Setter
 public class Client implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id", nullable = false)
-	@Setter @Getter
 	private long id;
 
-	@Setter @Getter
 	private String firstname;
 
-	@Setter @Getter
 	private String lastname;
 
+	@JsonBackReference
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "job")
-	@Setter @Getter
 	private Job job;
 
 
 	public Client() {}
-
 
 	public Client(@NotNull long id, String firstname, String lastname, Job job) {
 		this.id = id;
@@ -38,7 +36,6 @@ public class Client implements Serializable {
 		this.lastname = lastname;
 		this.job = job;
 	}
-
 
 	@Override
 	public boolean equals(Object obj) {
@@ -53,15 +50,9 @@ public class Client implements Serializable {
 				&& Objects.equals(this.lastname, objClient.lastname));
 	}
 
-
 	@Override
 	public String toString() {
 		return String.format("Client {id=%s, firstname=%s, lastname=%s, job=%s}",
 				id, firstname, lastname, job == null ? "unemployed" : job.getName());
-//		return "Client{" +
-//				"id=" + id +
-//				", firstname='" + firstname + '\'' +
-//				", lastname='" + lastname + '\'' +
-//				'}';
 	}
 }

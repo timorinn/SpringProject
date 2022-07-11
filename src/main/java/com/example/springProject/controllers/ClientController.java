@@ -2,9 +2,13 @@ package com.example.springProject.controllers;
 
 import com.example.springProject.services.ClientServiceImpl;
 import com.example.springProject.entities.Client;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -12,12 +16,11 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Comparator;
 import java.util.List;
 
-@Controller
+@Slf4j
+@RestController
 public class ClientController {
 
 	private final ClientServiceImpl clientService;
-
-	Logger logger = LogManager.getLogger(ClientController.class);
 
 	@Autowired
 	public ClientController(ClientServiceImpl clientService) {
@@ -74,18 +77,16 @@ public class ClientController {
 	}
 
 
-	@GetMapping("/count")
-	public String getCount(Model model) {
-		model.addAttribute("count", Long.toString(clientService.count()));
-		return "html/count";
+	@RequestMapping(value = "/count", method = RequestMethod.GET
+			, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Long> getCount() {
+		return new ResponseEntity<Long>(clientService.count(), HttpStatus.OK);
 	}
 
+	@RequestMapping(value = "/all_clients", method = RequestMethod.GET,
+			produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<Client> allClients() {
 
-	@ResponseBody
-	@GetMapping("/all_clients")
-	public String clients() {
-
-		StringBuilder stringBuilder = new StringBuilder();
 
 		Comparator<Client> comparator = new Comparator<Client>() {
 			@Override
@@ -99,10 +100,6 @@ public class ClientController {
 
 		List<Client> clientList = clientService.findAll();
 		clientList.sort(comparator);
-
-		for (Client client : clientList) {
-			stringBuilder.append(client.toString());
-		}
-		return stringBuilder.toString();
+		return clientList;
 	}
 }

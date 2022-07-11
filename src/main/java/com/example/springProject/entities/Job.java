@@ -1,5 +1,6 @@
 package com.example.springProject.entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -18,6 +19,7 @@ public class Job implements Serializable {
 	@Getter @Setter
 	private Integer id;
 
+	@JsonManagedReference
 	@OneToMany(mappedBy = "job", cascade = CascadeType.ALL, orphanRemoval = false)
 	@Getter @Setter
 	private List<Client> clients = new ArrayList<>();

@@ -4,7 +4,6 @@ import com.example.springProject.configurations.JPAConfig;
 import com.example.springProject.services.ClientService;
 import com.example.springProject.services.ClientServiceImpl;
 import org.junit.Assert;
-//import org.junit.Test;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -28,4 +27,11 @@ public class ClientServiceImplTest {
 	public void serviceIsNull() {
 		Assert.assertNotNull(clientService);
 	}
+
+	@Test
+	public void serviceCount() {
+		System.out.println("Test clientCount : " + clientService.count());
+	}
+
+
 }

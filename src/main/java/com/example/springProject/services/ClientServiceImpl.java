@@ -1,6 +1,8 @@
 package com.example.springProject.services;
 
 import com.example.springProject.repositories.ClientRepository;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,21 +16,12 @@ import javax.persistence.*;
 import java.util.List;
 
 @Service
+@AllArgsConstructor
+@Slf4j
 public class ClientServiceImpl implements ClientService {
-
 	private final EntityManagerFactory entityManagerFactory;
 	private final ClientRepository repository;
 
-//	@PersistenceContext
-//	private EntityManager entityManager;
-
-	private final Logger logger = LogManager.getLogger(ClientServiceImpl.class);
-
-	@Autowired
-	public ClientServiceImpl(EntityManagerFactory entityManagerFactory, ClientRepository repository) {
-		this.entityManagerFactory = entityManagerFactory;
-		this.repository = repository;
-	}
 
 	/**
 	 *		Alternative form through EntityManager
@@ -45,7 +38,6 @@ public class ClientServiceImpl implements ClientService {
 	public Client findById(long id) {
 		return repository.findById(id).orElse(null);
 	}
-
 
 	@Modifying
 	@Transactional
@@ -68,7 +60,6 @@ public class ClientServiceImpl implements ClientService {
 	@Transactional
 	public Client deleteClientById(long id) {
 		Client client = repository.findById(id).orElse(null);
-//		logger.debug("Client with id={} {}found.", id, client == null ? "not " : "");
 		if (client != null)
 			repository.delete(client);
 		return client;
@@ -88,6 +79,6 @@ public class ClientServiceImpl implements ClientService {
 
 	@PreDestroy
 	void destroy() {
-		logger.info("Service's destroy method called.");
+		log.info("Service's destroy method called.");
 	}
 }
