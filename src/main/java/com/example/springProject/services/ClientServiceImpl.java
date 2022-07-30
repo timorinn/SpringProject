@@ -1,5 +1,6 @@
 package com.example.springProject.services;
 
+import com.example.springProject.exceptions.NotFoundException;
 import com.example.springProject.repositories.ClientRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -7,12 +8,15 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import com.example.springProject.entities.Client;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PreDestroy;
 import javax.persistence.*;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -49,7 +53,7 @@ public class ClientServiceImpl implements ClientService {
 	public Client updateClient(long id, String newFirstname, String newLastname) {
 		Client client = repository.findById(id).orElse(null);
 		if (client == null) {
-			return null;
+			throw new NotFoundException("Client not found!");
 		}
 		client.setFirstname(newFirstname);
 		client.setLastname(newLastname);
@@ -60,8 +64,7 @@ public class ClientServiceImpl implements ClientService {
 	@Transactional
 	public Client deleteClientById(long id) {
 		Client client = repository.findById(id).orElse(null);
-		if (client != null)
-			repository.delete(client);
+		if (client != null) repository.delete(client);
 		return client;
 	}
 
@@ -72,9 +75,15 @@ public class ClientServiceImpl implements ClientService {
 	}
 
 	@Transactional(readOnly = true)
-	public List<Client> findAll() {
-		//todo
-		return repository.findAll();
+	public ResponseEntity<List<Client>> getAll() {
+		List<Client> clients = repository.findAll();
+		Collections.sort(clients);
+		return ResponseEntity.ok().body(clients);
+	}
+
+	@Override
+	public ResponseEntity<Long> countClients() {
+		return ResponseEntity.ok().body(repository.count());
 	}
 
 	@PreDestroy

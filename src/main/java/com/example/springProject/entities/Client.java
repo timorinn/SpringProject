@@ -4,14 +4,14 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.sun.istack.NotNull;
 import lombok.Getter;
 import lombok.Setter;
+
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
 @Table(name = "client")
 @Getter @Setter
-public class Client implements Serializable {
+public class Client implements Comparable<Client>{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -54,5 +54,13 @@ public class Client implements Serializable {
 	public String toString() {
 		return String.format("Client {id=%s, firstname=%s, lastname=%s, job=%s}",
 				id, firstname, lastname, job == null ? "unemployed" : job.getName());
+	}
+
+	@Override
+	public int compareTo(Client c) {
+		if (this.getId() == c.getId()) {
+			return 0;
+		}
+		return this.getId() - c.getId() > 0 ? 1 : -1;
 	}
 }

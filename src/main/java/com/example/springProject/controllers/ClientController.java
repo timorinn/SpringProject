@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.web.ErrorProperties;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -13,11 +14,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
 @Slf4j
 @RestController
+@RequestMapping("/client")
 public class ClientController {
 
 	private final ClientServiceImpl clientService;
@@ -61,14 +65,11 @@ public class ClientController {
 		return "html/client_info_for_update";
 	}
 
-
-	@PostMapping("/client_updated")
-	public String clientUpdated(@ModelAttribute Client client, Model model) {
-		model.addAttribute("client", client);
-		clientService.updateClient(client.getId(), client.getFirstname(), client.getLastname());
-		return "html/client_updated";
+	@PostMapping("update")
+	public ResponseEntity<Client> updateClient(@RequestBody Client c) {
+		log.info("POST | c.id: {} | c.firstname: {} | c.lastname: {}", c.getId(), c.getFirstname(), c.getLastname());
+		return ResponseEntity.ok(clientService.updateClient(c.getId(), c.getFirstname(), c.getLastname()));
 	}
-
 
 	@PostMapping("/client_deleted")
 	public String client(@ModelAttribute Client client, Model model) {
@@ -77,29 +78,17 @@ public class ClientController {
 	}
 
 
-	@RequestMapping(value = "/count", method = RequestMethod.GET
+	@RequestMapping(value = "/count_clients", method = RequestMethod.GET
 			, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Long> getCount() {
-		return new ResponseEntity<Long>(clientService.count(), HttpStatus.OK);
+	public ResponseEntity<Long> countClients() {
+		return clientService.countClients();
 	}
 
-	@RequestMapping(value = "/all_clients", method = RequestMethod.GET,
-			produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<Client> allClients() {
-
-
-		Comparator<Client> comparator = new Comparator<Client>() {
-			@Override
-			public int compare(Client c1, Client c2) {
-				if (c1.getId() == c2.getId()) {
-					return 0;
-				}
-				return c1.getId() - c2.getId() > 0 ? 1 : -1;
-			}
-		};
-
-		List<Client> clientList = clientService.findAll();
-		clientList.sort(comparator);
-		return clientList;
+	@RequestMapping(value = "/get_all", method = RequestMethod.GET)
+//			produces = MediaType.APPLICATION_JSON_VALUE)
+//			produces = MediaType.APPLICATION_XML_VALUE)
+	public ResponseEntity<List<Client>> getAll() {
+		log.info("Incoming request to allClients!");
+		return clientService.getAll();
 	}
 }

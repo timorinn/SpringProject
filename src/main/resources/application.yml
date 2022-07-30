@@ -1,0 +1,22 @@
+spring:
+  jpa:
+    show-sql: true
+    generate-ddl: false
+    properties:
+      hibernate:
+        format_sql: false
+        generate_statistics: true
+  task:
+    scheduling:
+      pool:
+        size: 2
+
+logging:
+  level:
+    root: info
+
+server:
+  error:
+    include-exception: false
+    include-message: always
+    include-stacktrace: never
